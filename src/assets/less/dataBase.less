@@ -1,0 +1,92 @@
+.base {
+  background-color: @white;
+  padding: 20px;
+  margin-bottom: 20px;
+  &-node {
+    display: flex;
+    flex-wrap: wrap;
+    &-item {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      min-height: 100px;
+      cursor: pointer;
+      img {
+        width: 40px;
+      }
+      &-content {
+        margin-left: 20px;
+      }
+      &-text {
+        display: block;
+        &-color {
+          color: #7a889f;
+        }
+      }
+    }
+  }
+  &-put {
+    text-align: center;
+    border-bottom: 2px solid #d9dce1;
+    padding-bottom: 20px;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      background-color: #d9dce1;
+      width: 16px;
+      height: 16px;
+      left: calc(50% - 8px);
+      bottom: -10px;
+      transform: rotate(45deg);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      background-color: #fff;
+      width: 16px;
+      height: 16px;
+      left: calc(50% - 8px);
+      bottom: -12px;
+      transform: rotate(45deg);
+    }
+  }
+  &-query {
+    margin: 20px 0;
+    .ant-input-affix-wrapper {
+      width: 350px;
+    }
+  }
+  &-content {
+    display: flex;
+    flex-wrap: wrap;
+    &-item {
+      width: 32%;
+      margin-right: 1%;
+      padding-bottom: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  &-page {
+    text-align: right;
+  }
+  &-details {
+    background-color: @white;
+    padding: 20px;
+    &-title {
+      font-size: 20px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #d9dce1;
+      margin-bottom: 20px;
+    }
+    &-table {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
+}
