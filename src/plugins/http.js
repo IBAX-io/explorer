@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-12-01 16:49:19
  * @LastEditors: abc
- * @LastEditTime: 2021-01-13 16:52:53
+ * @LastEditTime: 2021-11-05 10:21:06
  * @Description:axios
  */
 import Vue from 'vue';
@@ -34,11 +34,12 @@ Vue.use(VueAxiosPlugin, {
     config.retry = 4;
     config.retryDelay = 1000;
     config.timeout = 60000;
+    //  console.log(config);
     return config;
   },
   //abcd
   reqErrorFunc: error => {
-    message.success({ content: error, duration: 0 });
+    message.success({ content: error, duration: 5 });
   },
   //abcd
   resHandleFunc: response => response.data,

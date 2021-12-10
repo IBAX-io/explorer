@@ -5,8 +5,9 @@
   &-node {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     &-item {
-      width: 50%;
+      width: 40%;
       display: flex;
       align-items: center;
       margin-bottom: 20px;
@@ -24,6 +25,15 @@
           color: #7a889f;
         }
       }
+    }
+  }
+  .active {
+    background-color: #9cc1ff;
+    color: #e8f0ff;
+    padding: 0 20px;
+    border-radius: 5px;
+    .base-node-item-text-color {
+      color: #e8f0ff;
     }
   }
   &-put {
@@ -70,6 +80,8 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: #4e8cf3;
+      cursor: pointer;
     }
   }
   &-page {

@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-12-07 10:15:34
  * @LastEditors: abc
- * @LastEditTime: 2021-01-15 14:35:58
+ * @LastEditTime: 2021-11-04 14:44:09
  * @Description:mixins
  */
 import moment from 'moment';
@@ -76,7 +76,7 @@ export default {
           var callbacks = {
             // See below description of message format
             publish: function(message) {
-              fn(message);
+              fn(message.data);
               //that.homeLoading = false;
               //  console.log(message);
               const info = 'Data  successful';
@@ -112,7 +112,10 @@ export default {
           });
         },
         echartsMap(arr, echarts, dom) {
-          var chart = echarts.init(document.getElementById(dom));
+          const element = document.getElementById(dom);
+          //element.removeAttribute('_echarts_instance_');
+          let chart = echarts.init(element);
+          chart.clear();
           window.addEventListener('resize', function() {
             chart.resize();
           });

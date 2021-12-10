@@ -20,7 +20,7 @@
           :key="item.key_id"
         >
           <div class="home-node-left-img">
-            <img :src="item.icon_url" alt="item.icon" />
+            <img :src="v" alt="item.icon" />
           </div>
           <div class="home-node-left-content">
             <a-tooltip placement="bottomLeft">

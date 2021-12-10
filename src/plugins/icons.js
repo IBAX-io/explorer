@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-11-03 15:30:47
  * @LastEditors: abc
- * @LastEditTime: 2020-12-11 10:31:35
+ * @LastEditTime: 2021-05-26 18:29:09
  * @Descriptionabcd Iconsabcd+Outline
  */
 export {
@@ -42,5 +42,6 @@ export {
   FacebookOutline,
   TwitterOutline,
   GooglePlusOutline,
-  LinkedinOutline
+  LinkedinOutline,
+  CopyOutline
 } from '@ant-design/icons';

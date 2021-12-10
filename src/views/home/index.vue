@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-11-03 10:54:28
  * @LastEditors: abc
- * @LastEditTime: 2021-01-15 12:27:46
+ * @LastEditTime: 2021-11-04 18:14:01
  * @Description: home
 -->
 <template>
@@ -39,36 +39,39 @@
         </div>
       </a-skeleton>
       <!-- charts -->
-      <a-skeleton active :loading="loading">
-        <div class="home-charts">
-          <div class="home-queue">
-            <span>{{ $t('home.transaction') }}</span>
-            <span class="home-queue-num"
-              >{{ block_transcations }}/{{ queue_transcations }}</span
-            >
-            <span class="home-queue-right">{{ $t('home.execute') }}</span>
-            <span class="home-queue-num">{{ block_transcations }}</span>
+      <!--  <a-skeleton active :loading="loading"> -->
+      <div class="home-charts">
+        <div class="home-queue">
+          <span>{{ $t('home.transaction') }}</span>
+          <span class="home-queue-num"
+            >{{ block_transcations }}/{{ queue_transcations }}</span
+          >
+          <span class="home-queue-right">{{ $t('home.execute') }}</span>
+          <span class="home-queue-num">{{ block_transcations }}</span>
+        </div>
+        <!-- echarts -->
+        <show-echarts
+          v-if="websocketData.url"
+          :websocketData="websocketData"
+        ></show-echarts>
+        <div class="home-queue">
+          <div>
+            <div class="home-queue-num">
+              {{ circulations_amount
+              }}<span class="home-number-g">{{ $t('money') }}</span>
+            </div>
+            <div class="home-queue-num">{{ $t('home.circulating') }}</div>
           </div>
-          <!-- echarts -->
-          <show-echarts></show-echarts>
-          <div class="home-queue">
-            <div>
-              <div class="home-queue-num">
-                {{ circulations_amount
-                }}<span class="home-number-g">{{ $t('money') }}</span>
-              </div>
-              <div class="home-queue-num">{{ $t('home.circulating') }}</div>
+          <div class="home-queue-right">
+            <div class="home-queue-num">
+              {{ total_amount }}
+              <span class="home-number-g">{{ $t('money') }}</span>
             </div>
-            <div class="home-queue-right">
-              <div class="home-queue-num">
-                {{ total_amount }}
-                <span class="home-number-g">{{ $t('money') }}</span>
-              </div>
-              <div class="home-queue-num">{{ $t('home.supply') }}</div>
-            </div>
+            <div class="home-queue-num">{{ $t('home.supply') }}</div>
           </div>
         </div>
-      </a-skeleton>
+      </div>
+      <!--  </a-skeleton> -->
     </div>
     <!--  home-second-->
     <a-skeleton active :loading="loading">
@@ -211,15 +214,17 @@ export default {
       node_position: 1,
       objNode: {},
       isNode: false,
-      loading: true
+      loading: true,
+      websocketData: {}
     };
   },
   created() {
     console.log(this.echartsLoading);
     this.$store.dispatch('websocketToken').then(() => {
-      const websocketData = this.$store.getters.postWebsocket;
+      this.handleGetDashboard();
+      /* this.websocketData = this.$store.getters.postWebsocket;
       //  console.log(JSON.stringify(websocketData));
-      this.getSocket(websocketData, this.handleDashboard, 'dashboard');
+      this.getSocket(this.websocketData, this.handleDashboard, 'dashboard'); */
     });
   },
   computed: {},
@@ -227,38 +232,35 @@ export default {
     this.arrNum = this.num.split('');
     this.isNode = true;
   },
-  beforeDestroy() {
-    this.loadMapDestroy();
-  },
+  beforeDestroy() {},
   methods: {
-    loadMapDestroy() {
-      this.isNode = false;
-      const bingUesrKey =
-        'ApN1XkT2A0xYVCMN0mihGQWzQ4btN3v171jSV0BvrBRmsFDWe7pVnKu3o-tgXjox';
-      const lang = this.$store.state.lang;
-      console.log(lang);
-      const BingMap_URL = `http://www.bing.com/api/maps/mapcontrol?setLang=${lang}&key=${bingUesrKey}&callback=loadMapScenario`;
-      // As an instance method inside a component
-      this.$unloadScript(BingMap_URL)
-        .then(() => {
-          // Script was unloaded successfully
-          window.loadMapScenario = null;
-        })
-        .catch(() => {
-          // Script couldn't be found to unload; make sure it was loaded and that you passed the same URL
-        });
+    async handleGetDashboard() {
+      const res = await this.$http.get(`/dashboard`);
+      // console.log(res);
+      if (res.code === 0) {
+        const { data } = res;
+        if (data) {
+          this.handleDashboard(data);
+        } else {
+          this.handleDashboard([]);
+        }
+        this.websocketData = this.$store.getters.postWebsocket;
+        //  console.log(JSON.stringify(websocketData));
+        this.getSocket(this.websocketData, this.handleDashboard, 'dashboard');
+      }
     },
-    /* get  dashboard*/
+    /* get websocket dashboard*/
     handleDashboard(data) {
       console.log(JSON.stringify(data));
       this.loading = false;
-      const dashboard = (this.dashboard = data.data);
+      const dashboard = (this.dashboard = data);
       this.objNode = {
         node_position: parseInt(dashboard.node_position),
         block_id: parseInt(dashboard.block_id),
         node_blocks: parseInt(dashboard.node_blocks)
       };
       this.numBlock = handleThousandFormat(dashboard.block_id);
+      console.log(handleThousandFormat(dashboard.total_counts));
       this.arrNum = handleThousandFormat(dashboard.total_counts).split('');
       this.circulations_amount = handleMoneyFormat(
         dashboard.circulations_amount

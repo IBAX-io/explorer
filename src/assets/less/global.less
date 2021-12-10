@@ -19,6 +19,17 @@ strong {
 .page-leave-active {
   opacity: 0;
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-leave-to {
+  display: none;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 /* global style */
 .ant-layout {
   min-height: 100vh;
@@ -45,14 +56,11 @@ strong {
     border-bottom: 2px solid @white;
     color: @white;
   }
-  .Copy {
-    padding: 3px 10px;
-    border: 1px solid #d6ddea;
+  .copy {
     color: #7a889f;
-    border-radius: 3px;
     cursor: pointer;
-    margin: 0 10px;
-    font-size: 14px;
+    margin: 0 5px;
+    font-size: 16px;
   }
   input::-webkit-input-placeholder {
     color: #acbcd8;

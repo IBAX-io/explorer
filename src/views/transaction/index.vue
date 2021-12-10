@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-12-04 18:24:31
  * @LastEditors: abc
- * @LastEditTime: 2021-01-11 18:26:14
+ * @LastEditTime: 2021-05-26 18:36:16
  * @Description: Transaction Details
 -->
 <template>
@@ -18,15 +18,14 @@
             }}</label>
             <span class="block-content-light">
               {{ transactionHistory.txhash }}
-              <span
+              <a-icon
+                type="copy"
                 v-if="transactionHistory.txhash"
                 class="Copy"
                 v-clipboard:copy="transactionHistory.txhash"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              >
-                {{ $t('share') }}
-              </span>
+              />
             </span>
           </div>
           <div class="block-content-single-item" style="display: none;">
@@ -72,15 +71,14 @@
             }}</label>
             <span class="block-content-text"
               >{{ transactionHistory.sender_id }}
-              <span
+              <a-icon
+                type="copy"
+                class="copy"
                 v-if="transactionHistory.sender_id"
-                class="Copy"
                 v-clipboard:copy="transactionHistory.sender_id"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              >
-                {{ $t('share') }}
-              </span>
+              />
             </span>
           </div>
           <div class="block-content-single-item">

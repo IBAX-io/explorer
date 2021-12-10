@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-11-03 10:54:28
  * @LastEditors: abc
- * @LastEditTime: 2021-01-13 17:45:59
+ * @LastEditTime: 2021-03-24 11:40:11
  * @Description: main page
 -->
 <template>
@@ -17,7 +17,9 @@
         <a-layout-content>
           <a-row type="flex" justify="center" align="top">
             <a-col :span="16" class="mainBox">
-              <router-view v-if="isRouterAlive" />
+              <transition name="fade">
+                <router-view v-if="isRouterAlive" />
+              </transition>
               <div class="mainBox-right">
                 <div
                   class="mainBox-right_blue"

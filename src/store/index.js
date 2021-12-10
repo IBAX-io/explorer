@@ -2,7 +2,7 @@
  * @Author: abc
  * @Date: 2020-11-03 10:54:28
  * @LastEditors: abc
- * @LastEditTime: 2021-01-13 17:59:02
+ * @LastEditTime: 2021-11-04 17:04:09
  * @Description:
  */
 import Vue from 'vue';
@@ -40,12 +40,18 @@ export default new Vuex.Store({
       state.websocketData = websocket.data;
     },
     honorNodelist(state, nodeList) {
-      const list = nodeList.data.map(item => {
-        item.active = false;
-        return item;
-      });
-      nodeList.data = list;
-      state.nodeList = nodeList;
+      console.log(JSON.stringify(nodeList));
+      if (nodeList.data) {
+        const list = nodeList.data.map(item => {
+          item.active = false;
+          return item;
+        });
+        nodeList.data = list;
+        state.nodeList = nodeList;
+      } else {
+        nodeList.data = [];
+        state.nodeList = nodeList;
+      }
     }
   },
   actions: {
